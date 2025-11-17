@@ -6,7 +6,7 @@ export default function Page() {
       style={{
         maxWidth: 1000,
         margin: "0 auto",
-        padding: "32px 20px",
+        padding: "20px 20px 32px 20px",
         height: "100vh",
         display: "flex",
         flexDirection: "column",
@@ -15,9 +15,9 @@ export default function Page() {
       <h1
         style={{
           fontSize: "2.5rem",
-          margin: "0 0 32px 0",
+          margin: "0 0 20px 0",
           textAlign: "center",
-          fontWeight: 800,
+          fontWeight: 400,
           letterSpacing: "-0.02em",
           color: "#e4e7eb",
         }}
@@ -25,6 +25,7 @@ export default function Page() {
         <span
           style={{
             fontFamily: "system-ui, sans-serif",
+            fontWeight: 400,
             background: "linear-gradient(135deg, #a78bfa 0%, #60a5fa 100%)",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
