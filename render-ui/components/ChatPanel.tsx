@@ -125,64 +125,72 @@ export function ChatPanel() {
 
   return (
     <section className="chat-container">
-      <header>
-        <p className="pill">
-          <span aria-hidden="true">🩺</span> Klinik Diyalog Konsolu
-        </p>
-        <h2 style={{ marginTop: 12, marginBottom: 8 }}>
-          Medical GPT-OSS 20B
-        </h2>
-        <p style={{ color: "#486377", margin: 0 }}>
-          Bu arayüz Vercel üzerinde çalışır ve Modal üzerindeki GPU API&apos;sine
-          bağlanır.
-        </p>
-      </header>
-
       <div className="chat-log">
         {hasConversation ? (
-          messages.map((message) => (
-            <article className="message" key={message.timestamp}>
-              <h4>
-                {message.role === "user" ? "🙋‍♂️ Kullanıcı" : "🤖 Asistan"}
-              </h4>
-              <pre>{message.content}</pre>
-            </article>
-          ))
+          <>
+            {messages.map((message) => (
+              <article className="message" key={message.timestamp}>
+                <h4>
+                  {message.role === "user" ? "You" : "Assistant"}
+                </h4>
+                <pre>{message.content}</pre>
+              </article>
+            ))}
+            {isLoading && (
+              <article className="message">
+                <h4>Assistant</h4>
+                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                  <span className="loading-spinner"></span>
+                  <span style={{ color: "#9ca3af" }}>Thinking...</span>
+                </div>
+              </article>
+            )}
+          </>
         ) : (
-          <p style={{ color: "#7c8da5" }}>
-            Henüz mesaj yok. {INITIAL_PROMPT}
+          <p style={{ color: "#9ca3af", textAlign: "center", marginTop: "40px" }}>
+            Start a conversation
           </p>
         )}
       </div>
 
       <form className="form" onSubmit={handleSubmit}>
-        <label htmlFor="message">Klinik soru</label>
         <textarea
           id="message"
-          placeholder={INITIAL_PROMPT}
+          placeholder="Type your message..."
           value={input}
           onChange={(event) => setInput(event.target.value)}
           disabled={isLoading}
         />
 
         {error && (
-          <p style={{ color: "#b42318", margin: "4px 0 0" }}>{error}</p>
+          <p style={{ color: "#ef4444", margin: "4px 0 0", fontSize: "0.9rem" }}>
+            {error}
+          </p>
         )}
 
-        <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+        <div style={{ display: "flex", gap: 12, justifyContent: "flex-end" }}>
+          {hasConversation && (
+            <button
+              type="button"
+              onClick={handleClear}
+              style={{
+                background: "rgba(255, 255, 255, 0.1)",
+                color: "#e4e7eb",
+              }}
+              disabled={isLoading}
+            >
+              Clear
+            </button>
+          )}
           <button type="submit" disabled={isLoading}>
-            {isLoading ? "Yanıt oluşturuluyor..." : "Yanıt oluştur"}
-          </button>
-          <button
-            type="button"
-            onClick={handleClear}
-            style={{
-              background: "rgba(15, 122, 157, 0.12)",
-              color: "#0f7a9d",
-            }}
-            disabled={isLoading || !hasConversation}
-          >
-            Sohbeti temizle
+            {isLoading ? (
+              <>
+                <span className="loading-spinner"></span>
+                Sending...
+              </>
+            ) : (
+              "Send"
+            )}
           </button>
         </div>
       </form>
