@@ -84,11 +84,13 @@ export function ChatPanel() {
           throw new Error("Yanıt gövdesi boş döndü.");
         }
 
+        const responseText = payload.response; // TypeScript now knows this is string
+
         setMessages((prev) => [
           ...prev,
           {
             role: "assistant",
-            content: formatAssistantMessage(payload.response),
+            content: formatAssistantMessage(responseText),
             timestamp: Date.now(),
           },
         ]);
