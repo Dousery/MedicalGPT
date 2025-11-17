@@ -1,4 +1,4 @@
-import { ChatPanel } from "@/components/ChatPanel";
+import { ChatPanel } from "../components/ChatPanel";
 
 const stats = [
   { label: "Rehber kapsamı", value: "40K+", detail: "klinik guideline" },
