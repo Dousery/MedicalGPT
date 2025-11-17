@@ -1,0 +1,19 @@
+__pycache__/
+*.pyc
+*.pyo
+
+# Modal / local configs
+.env
+.env.local
+.modal-cache/
+
+# Vercel / Next.js artifacts
+vercel-ui/.next/
+vercel-ui/node_modules/
+vercel-ui/.env.local
+vercel-ui/.vercel/
+
+# macOS / Windows
+.DS_Store
+Thumbs.db
+
