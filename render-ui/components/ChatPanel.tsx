@@ -6,6 +6,8 @@ type Message = {
   role: "user" | "assistant";
   content: string;
   timestamp: number;
+  thinking?: string;
+  final?: string;
 };
 
 type ApiResponse = {
@@ -16,25 +18,67 @@ type ApiResponse = {
 const INITIAL_PROMPT =
   "Örneğin: 58 yaşında diyabetik hastada göğüs ağrısı ve nefes darlığı.";
 
-function formatAssistantMessage(raw: string) {
-  if (!raw) return "Modelden boş yanıt geldi.";
+function parseAssistantMessage(raw: string): { thinking?: string; final?: string; plain?: string } {
+  if (!raw) return { plain: "Empty response from model." };
 
   const thinkingMatch = raw.match(/Thinking:\s*([\s\S]*?)\n\s*Final:/i);
   const finalMatch = raw.match(/Final:\s*([\s\S]*)$/i);
 
   if (!thinkingMatch && !finalMatch) {
-    return raw.trim();
+    return { plain: raw.trim() };
   }
 
-  const thinking = thinkingMatch ? thinkingMatch[1].trim() : "";
-  const final = finalMatch ? finalMatch[1].trim() : "";
+  const thinking = thinkingMatch ? thinkingMatch[1].trim() : undefined;
+  const final = finalMatch ? finalMatch[1].trim() : undefined;
 
-  return [
-    thinking && `🧠 **Düşünme Süreci**\n${thinking}`,
-    final && `✅ **Sonuç**\n${final}`,
-  ]
-    .filter(Boolean)
-    .join("\n\n");
+  return { thinking, final };
+}
+
+function ThinkingDropdown({ thinking }: { thinking: string }) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div style={{ marginBottom: "16px" }}>
+      <button
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+        style={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          padding: "12px 16px",
+          background: "rgba(96, 165, 250, 0.1)",
+          border: "1px solid rgba(96, 165, 250, 0.3)",
+          borderRadius: "8px",
+          color: "#60a5fa",
+          cursor: "pointer",
+          fontSize: "0.9rem",
+          fontWeight: 600,
+        }}
+      >
+        <span>Thinking</span>
+        <span style={{ fontSize: "0.8rem" }}>{isOpen ? "▼" : "▶"}</span>
+      </button>
+      {isOpen && (
+        <div
+          style={{
+            marginTop: "8px",
+            padding: "16px",
+            background: "#0f1419",
+            borderRadius: "8px",
+            border: "1px solid rgba(96, 165, 250, 0.2)",
+            color: "#e4e7eb",
+            whiteSpace: "pre-wrap",
+            fontSize: "0.9rem",
+            lineHeight: "1.6",
+          }}
+        >
+          {thinking}
+        </div>
+      )}
+    </div>
+  );
 }
 
 export function ChatPanel() {
@@ -86,12 +130,15 @@ export function ChatPanel() {
 
         // TypeScript type narrowing - after the check above, response is guaranteed to be string
         const responseText: string = payload.response;
+        const parsed = parseAssistantMessage(responseText);
 
         setMessages((prev) => [
           ...prev,
           {
             role: "assistant",
-            content: formatAssistantMessage(responseText),
+            content: parsed.plain || parsed.final || "",
+            thinking: parsed.thinking,
+            final: parsed.final,
             timestamp: Date.now(),
           },
         ]);
@@ -133,7 +180,28 @@ export function ChatPanel() {
                 <h4>
                   {message.role === "user" ? "You" : "Assistant"}
                 </h4>
-                <pre>{message.content}</pre>
+                {message.role === "assistant" && message.thinking && (
+                  <ThinkingDropdown thinking={message.thinking} />
+                )}
+                {message.role === "assistant" && message.final && (
+                  <div style={{ marginTop: message.thinking ? "0" : "0" }}>
+                    <div
+                      style={{
+                        marginBottom: "8px",
+                        color: "#60a5fa",
+                        fontSize: "0.9rem",
+                        fontWeight: 600,
+                      }}
+                    >
+                      Final
+                    </div>
+                    <pre style={{ margin: 0 }}>{message.final}</pre>
+                  </div>
+                )}
+                {message.role === "assistant" && !message.final && !message.thinking && (
+                  <pre>{message.content}</pre>
+                )}
+                {message.role === "user" && <pre>{message.content}</pre>}
               </article>
             ))}
             {isLoading && (
