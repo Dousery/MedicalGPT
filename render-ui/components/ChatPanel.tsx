@@ -80,17 +80,15 @@ export function ChatPanel() {
 
         const payload = (await res.json()) as ApiResponse;
 
-        if (!payload.response) {
+        if (!payload.response || typeof payload.response !== "string") {
           throw new Error("Yanıt gövdesi boş döndü.");
         }
-
-        const responseText = payload.response; // TypeScript now knows this is string
 
         setMessages((prev) => [
           ...prev,
           {
             role: "assistant",
-            content: formatAssistantMessage(responseText),
+            content: formatAssistantMessage(payload.response),
             timestamp: Date.now(),
           },
         ]);
