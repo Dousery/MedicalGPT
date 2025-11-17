@@ -84,11 +84,14 @@ export function ChatPanel() {
           throw new Error("Yanıt gövdesi boş döndü.");
         }
 
+        // TypeScript type narrowing - after the check above, response is guaranteed to be string
+        const responseText: string = payload.response;
+
         setMessages((prev) => [
           ...prev,
           {
             role: "assistant",
-            content: formatAssistantMessage(payload.response),
+            content: formatAssistantMessage(responseText),
             timestamp: Date.now(),
           },
         ]);
