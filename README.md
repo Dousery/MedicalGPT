@@ -2,6 +2,9 @@
 
 A fine-tuned version of `openai/gpt-oss-20b` specifically optimized for medical reasoning and clinical decision-making. The model has been trained on high-quality medical reasoning datasets to provide accurate and thoughtful responses to medical queries.
 
+<img width="1802" height="979" alt="image" src="https://github.com/user-attachments/assets/bf336dac-386a-4169-ab18-8ec4947b75c6" />
+
+
 ## 🏥 Key Features
 
 - **Medical Expertise**: Specialized in medical reasoning, diagnosis, and clinical decision-making
