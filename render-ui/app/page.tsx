@@ -19,16 +19,37 @@ export default function Page() {
           textAlign: "center",
           fontWeight: 800,
           letterSpacing: "-0.02em",
-          background: "linear-gradient(135deg, #a78bfa 0%, #60a5fa 50%, #34d399 100%)",
-          WebkitBackgroundClip: "text",
-          WebkitTextFillColor: "transparent",
-          backgroundClip: "text",
-          textShadow: "0 0 40px rgba(139, 92, 246, 0.3)",
+          color: "#e4e7eb",
         }}
       >
-        <span style={{ fontFamily: "system-ui, sans-serif" }}>MEDICAL</span>
-        <span style={{ fontWeight: 300, opacity: 0.8, margin: "0 8px" }}>GPT</span>
-        <span style={{ fontSize: "0.7em", fontWeight: 600, opacity: 0.7, letterSpacing: "0.1em" }}>
+        <span
+          style={{
+            fontFamily: "system-ui, sans-serif",
+            background: "linear-gradient(135deg, #a78bfa 0%, #60a5fa 100%)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            backgroundClip: "text",
+          }}
+        >
+          MEDICAL
+        </span>
+        <span
+          style={{
+            fontWeight: 400,
+            margin: "0 8px",
+            color: "#a78bfa",
+          }}
+        >
+          GPT
+        </span>
+        <span
+          style={{
+            fontSize: "0.7em",
+            fontWeight: 600,
+            letterSpacing: "0.1em",
+            color: "#60a5fa",
+          }}
+        >
           OSS
         </span>
       </h1>
