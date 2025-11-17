@@ -48,13 +48,22 @@ function ThinkingDropdown({ thinking }: { thinking: string }) {
           justifyContent: "space-between",
           alignItems: "center",
           padding: "12px 16px",
-          background: "rgba(96, 165, 250, 0.1)",
-          border: "1px solid rgba(96, 165, 250, 0.3)",
+          background: "rgba(139, 92, 246, 0.15)",
+          backdropFilter: "blur(10px)",
+          WebkitBackdropFilter: "blur(10px)",
+          border: "1px solid rgba(139, 92, 246, 0.4)",
           borderRadius: "8px",
-          color: "#60a5fa",
+          color: "#a78bfa",
           cursor: "pointer",
           fontSize: "0.9rem",
           fontWeight: 600,
+          transition: "all 0.2s ease",
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.background = "rgba(139, 92, 246, 0.25)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.background = "rgba(139, 92, 246, 0.15)";
         }}
       >
         <span>Thinking</span>
@@ -65,9 +74,11 @@ function ThinkingDropdown({ thinking }: { thinking: string }) {
           style={{
             marginTop: "8px",
             padding: "16px",
-            background: "#0f1419",
+            background: "rgba(15, 20, 25, 0.4)",
+            backdropFilter: "blur(10px)",
+            WebkitBackdropFilter: "blur(10px)",
             borderRadius: "8px",
-            border: "1px solid rgba(96, 165, 250, 0.2)",
+            border: "1px solid rgba(139, 92, 246, 0.3)",
             color: "#e4e7eb",
             whiteSpace: "pre-wrap",
             fontSize: "0.9rem",

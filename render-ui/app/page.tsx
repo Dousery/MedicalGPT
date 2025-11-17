@@ -7,7 +7,9 @@ export default function Page() {
         maxWidth: 1000,
         margin: "0 auto",
         padding: "32px 20px",
-        minHeight: "100vh",
+        height: "100vh",
+        display: "flex",
+        flexDirection: "column",
       }}
     >
       <h1

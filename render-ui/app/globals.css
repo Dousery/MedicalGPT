@@ -14,6 +14,7 @@ body {
   margin: 0;
   min-height: 100vh;
   background: #0a0e14;
+  overflow: hidden;
 }
 
 a {
@@ -21,32 +22,59 @@ a {
 }
 
 .chat-container {
-  background: #1a1f2e;
+  background: rgba(26, 31, 46, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-radius: 20px;
   padding: 24px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 8px 32px rgba(139, 92, 246, 0.3);
   display: flex;
   flex-direction: column;
   gap: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(139, 92, 246, 0.4);
+  height: calc(100vh - 120px);
+  max-height: 800px;
 }
 
 .chat-log {
-  background: #0f1419;
+  background: rgba(15, 20, 25, 0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border-radius: 16px;
   padding: 20px;
-  min-height: 400px;
-  max-height: 600px;
+  flex: 1;
   overflow-y: auto;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow-x: hidden;
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(139, 92, 246, 0.5) transparent;
+}
+
+.chat-log::-webkit-scrollbar {
+  width: 8px;
+}
+
+.chat-log::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.chat-log::-webkit-scrollbar-thumb {
+  background: rgba(139, 92, 246, 0.5);
+  border-radius: 4px;
+}
+
+.chat-log::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 92, 246, 0.7);
 }
 
 .message {
   margin-bottom: 20px;
   padding: 16px;
-  background: #1a1f2e;
+  background: rgba(26, 31, 46, 0.5);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(139, 92, 246, 0.2);
 }
 
 .message h4 {
@@ -74,18 +102,21 @@ a {
   width: 100%;
   min-height: 120px;
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(139, 92, 246, 0.3);
   padding: 16px;
   font-size: 1rem;
   resize: vertical;
   font-family: inherit;
-  background: #0f1419;
+  background: rgba(15, 20, 25, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   color: #e4e7eb;
 }
 
 .form textarea:focus {
   outline: none;
-  border-color: #60a5fa;
+  border-color: rgba(139, 92, 246, 0.6);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
 }
 
 .form button {
