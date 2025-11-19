@@ -118,6 +118,7 @@ export function ChatPanel() {
         ...prev,
         { role: "user", content: trimmed, timestamp },
       ]);
+      setInput("");
 
       try {
         const res = await fetch("/api/chat", {
@@ -153,7 +154,6 @@ export function ChatPanel() {
             timestamp: Date.now(),
           },
         ]);
-        setInput("");
       } catch (err) {
         const msg =
           err instanceof Error
